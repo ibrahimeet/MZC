@@ -93,7 +93,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
-    margin: 16px;
+    margin: 16px 0;
     text-align: center;
   }
   .support-banner .icon { font-size: 1.8em; margin-bottom: 8px; }
@@ -205,6 +205,7 @@
   .field textarea {
     min-height: 120px;
     resize: vertical;
+    color: var(--text);
   }
   .field input:focus, .field textarea:focus { 
     border-color: var(--gold); 
@@ -246,73 +247,109 @@
     text-align: center; margin: 16px 0;
   }
   .zakat-box .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
-  .zakat-box .amount { font-size: 2.2em; font-weight: 700; color: var(--gold); margin: 8px 0; }
-  .zakat-box .freq { font-size: 0.8em; color: var(--silver); }
-  .status-pill {
-    display: inline-block; background: var(--green);
-    padding: 6px 14px; border-radius: 20px;
-    font-size: 0.75em; font-weight: 600; color: white;
-    margin-top: 10px;
+  .zakat-box .amount { font-size: 2.2em; font-weight: 800; color: var(--gold); margin: 8px 0; font-family: 'Amiri', serif; }
+  .zakat-box .monthly { font-size: 0.8em; color: var(--muted); margin-top: 6px; }
+  .zakat-box .monthly span { color: var(--green); font-weight: 600; }
+
+  .status-badge {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px;
+    font-size: 0.85em; font-weight: 600;
+    text-align: center; margin: 12px 0;
   }
-  .status-pill.below { background: var(--red); }
+  .status-badge.met { color: var(--green); border-color: #22c55e44; background: #22c55e12; }
+  .status-badge.not-met { color: var(--red); border-color: #f8717144; background: #f8717112; }
 
   /* ── BUTTONS ── */
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px 18px;
-    color: var(--text); font-size: 0.9em; font-weight: 500;
-    cursor: pointer; transition: all 0.2s;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    color: var(--text);
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
     font-family: 'DM Sans', sans-serif;
+    -webkit-appearance: none;
   }
-  .btn:active { transform: scale(0.98); }
-  .btn.primary { background: var(--gold); border: none; color: var(--bg); font-weight: 600; }
-  .btn.full { width: 100%; margin-bottom: 10px; }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary {
+    background: var(--gold);
+    color: var(--bg);
+    border-color: var(--gold);
+  }
+  .btn-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 16px 0;
+  }
 
   /* ── BREAKDOWN TABLE ── */
   .breakdown-table {
-    width: 100%; border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.9em;
   }
   .breakdown-table td {
-    padding: 10px 0; border-bottom: 1px solid var(--border);
+    padding: 11px 0;
+    border-bottom: 1px solid #1e2d45;
   }
-  .breakdown-table td:last-child { text-align: right; }
   .breakdown-table tr:last-child td { border-bottom: none; }
 
   /* ── FAQ ── */
   .faq-item {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); margin-bottom: 10px; overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.2s;
   }
   .faq-q {
-    padding: 14px 16px; cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center;
-    color: var(--text); font-weight: 500; font-size: 0.9em;
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88em;
+    font-weight: 500;
+    color: var(--text);
   }
   .faq-q .toggle {
-    color: var(--gold); font-size: 1.2em; transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 1.2em;
+    transition: transform 0.2s;
   }
   .faq-item.open .toggle { transform: rotate(45deg); }
   .faq-a {
-    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-    padding: 0 16px; color: var(--silver); font-size: 0.85em; line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 0.85em;
+    line-height: 1.7;
+    color: var(--silver);
   }
-  .faq-item.open .faq-a { max-height: 500px; padding: 0 16px 16px; }
+  .faq-item.open .faq-a {
+    max-height: 800px;
+    padding: 0 16px 14px;
+  }
 
-  /* ── FEEDBACK SYSTEM ── */
+  /* ── FEEDBACK SECTION ── */
   .feedback-item {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .feedback-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .feedback-meta {
     flex: 1;
@@ -323,32 +360,33 @@
     font-size: 0.95em;
   }
   .feedback-date {
-    font-size: 0.7em;
+    font-size: 0.75em;
     color: var(--muted);
     margin-top: 2px;
   }
   .feedback-type {
-    background: var(--blue);
-    color: white;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
     padding: 4px 10px;
-    border-radius: 12px;
     font-size: 0.7em;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
-  .feedback-type.suggestion {
-    background: var(--green);
-  }
+  .feedback-type.feedback { color: var(--blue); border-color: #38bdf844; background: #38bdf812; }
+  .feedback-type.suggestion { color: var(--green); border-color: #22c55e44; background: #22c55e12; }
   .feedback-message {
-    color: var(--silver);
+    color: var(--text);
     font-size: 0.9em;
     line-height: 1.6;
     margin-bottom: 12px;
   }
   .admin-response {
-    background: var(--surface);
+    background: linear-gradient(135deg, #f0c04012, #f0c04025);
     border-left: 3px solid var(--gold);
-    padding: 12px;
     border-radius: 8px;
+    padding: 12px;
     margin-top: 12px;
   }
   .admin-label {
@@ -356,18 +394,18 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--gold);
-    margin-bottom: 6px;
     font-weight: 600;
+    margin-bottom: 6px;
   }
   .admin-text {
-    color: var(--text);
-    font-size: 0.85em;
+    font-size: 0.88em;
+    color: var(--silver);
     line-height: 1.6;
   }
   .admin-panel {
     background: var(--surface);
-    border: 1px solid var(--gold);
-    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    border-radius: 10px;
     padding: 14px;
     margin-top: 12px;
   }
@@ -376,30 +414,62 @@
     gap: 8px;
     margin-top: 10px;
   }
-  .success-msg {
-    background: linear-gradient(135deg, #22c55e15, #22c55e25);
-    border: 1px solid var(--green);
-    border-radius: var(--radius);
-    padding: 14px;
-    color: var(--green);
-    font-size: 0.85em;
-    margin-bottom: 16px;
-    text-align: center;
+
+  /* ── SELECT DROPDOWN ── */
+  select {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--gold);
+    font-size: 1em;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f0c040' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    padding-right: 40px;
+  }
+  select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px #f0c04020;
   }
 
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center; padding: 24px 16px;
-    color: var(--muted); font-size: 0.8em;
-    border-top: 1px solid var(--border);
-    margin-top: 32px;
+  /* ── ADMIN LOGIN ── */
+  .admin-login-box {
+    background: linear-gradient(135deg, #1a2235, #0d1a2e);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 20px;
   }
-  .footer .heart { color: var(--red); }
+  .admin-login-box .title {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .admin-login-box .field {
+    margin-bottom: 10px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .btn-group { grid-template-columns: 1fr; }
+    .metrics { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ─── TOPBAR ─────────────────────────────────── -->
+<!-- ── TOPBAR ────────────────────────────────────── -->
 <div class="topbar">
   <div class="topbar-title">Zakat Calculator 🕌</div>
   <div class="topbar-badge">
@@ -407,338 +477,18 @@
   </div>
 </div>
 
-<!-- ─── HERO ───────────────────────────────────── -->
+<!-- ── HERO ──────────────────────────────────────── -->
 <div class="hero">
   <div class="hero-mosque">🕌</div>
   <h1>Zakat Calculator</h1>
-  <p>Simple · Shariah-Compliant · Indian Rupees</p>
+  <p>Calculate your Zakat obligation with precision</p>
   <div class="price-badge">
     <span class="dot"></span>
-    <span>Live Gold & Silver Prices</span>
+    Live Gold & Silver Prices (India)
   </div>
 </div>
 
-<!-- ─── PAGES ──────────────────────────────────── -->
-<div id="calcPage" class="page active">
-  
-  <!-- Support Banner -->
-  <div class="support-banner">
-    <div class="icon">💝</div>
-    <div class="title">Support Free Islamic Tools</div>
-    <div class="message">
-      If this tool has helped you, consider supporting it so we can continue building free tools for the community.
-      <strong>We do not accept Zakat, Fitra, or Sadaqah.</strong> If you cannot contribute, please remember us in your duas as your duas are equally valuable to us. 🤲
-    </div>
-    <button class="support-btn" onclick="alert('Thank you for your interest! Please contact the developer for support options.')">Support This Project</button>
-    <div class="note">Your support helps keep this tool free for everyone</div>
-  </div>
-
-  <div class="section-head">📊 Asset Entry</div>
-
-  <div class="card">
-    <div class="card-title">💵 Cash & Bank Accounts</div>
-    <div class="field">
-      <label>Cash in Hand + Savings + Checking (₹)</label>
-      <input type="number" id="inCash" value="50000" oninput="calculate()">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🪙 Gold & Silver</div>
-    <div class="grid-2">
-      <div class="field">
-        <label>Gold (grams)</label>
-        <input type="number" id="inGoldG" value="0" oninput="calculate()">
-      </div>
-      <div class="field">
-        <label>Silver (grams)</label>
-        <input type="number" id="inSilverG" value="0" oninput="calculate()">
-      </div>
-    </div>
-    <div class="auto-val" id="metalVal">Approx. value: ₹ 0</div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📈 Investments</div>
-    <div class="field">
-      <label>Stocks / Mutual Funds / Bonds (₹)</label>
-      <input type="number" id="inInvest" value="0" oninput="calculate()">
-      <div class="hint">Use market value. Shariah-compliant assets only if you follow that approach.</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🏢 Business Assets (Zakatable)</div>
-    <div class="field">
-      <label>Inventory + Receivables − Payables (₹)</label>
-      <input type="number" id="inBiz" value="0" oninput="calculate()">
-      <div class="hint">Include goods for sale, money owed to you. Exclude fixed assets (land, machinery).</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">💎 Other Zakatable Assets</div>
-    <div class="field">
-      <label>Lent money, crypto, etc. (₹)</label>
-      <input type="number" id="inOther" value="0" oninput="calculate()">
-    </div>
-  </div>
-
-  <div class="section-head">📉 Liabilities</div>
-  <div class="card">
-    <div class="field">
-      <label>Short-term debts due within this year (₹)</label>
-      <input type="number" id="inLiab" value="0" oninput="calculate()">
-      <div class="hint">Credit card debt, personal loans, installments. Not your full mortgage.</div>
-    </div>
-  </div>
-
-  <div class="section-head">💚 Your Zakat</div>
-  <div class="zakat-box">
-    <div class="label">Zakat Due (2.5%)</div>
-    <div class="amount" id="zakatDue">₹ 0</div>
-    <div class="freq" id="zakatFreq">~ ₹ 0 / month</div>
-    <div class="status-pill" id="statusPill">Below Nisab</div>
-  </div>
-
-  <div class="metrics">
-    <div class="metric">
-      <div class="label">Total Assets</div>
-      <div class="value" id="metricTotal">₹ 0</div>
-    </div>
-    <div class="metric">
-      <div class="label">Liabilities</div>
-      <div class="value red" id="metricLiab">₹ 0</div>
-    </div>
-    <div class="metric">
-      <div class="label">Net Wealth</div>
-      <div class="value blue" id="metricNet">₹ 0</div>
-    </div>
-    <div class="metric">
-      <div class="label">Nisab (Ag)</div>
-      <div class="value" id="metricNisab">₹ 0</div>
-    </div>
-  </div>
-
-  <button class="btn primary full" onclick="shareResult()">📤 Share Result</button>
-  <button class="btn full" onclick="downloadPDF()">📄 Download PDF</button>
-  <button class="btn full" onclick="downloadCSV()">📊 Download CSV</button>
-
-  <div class="card">
-    <div class="card-title">Detailed Breakdown</div>
-    <table class="breakdown-table" id="breakdownBody"></table>
-  </div>
-
-  <!-- Support Banner at bottom -->
-  <div class="support-banner">
-    <div class="icon">🤲</div>
-    <div class="message">
-      Remember us in your duas – your prayers are valuable to us!
-    </div>
-  </div>
-</div>
-
-<!-- ─── PRICES PAGE ────────────────────────────── -->
-<div id="pricesPage" class="page">
-  
-  <!-- Support Banner -->
-  <div class="support-banner">
-    <div class="icon">💝</div>
-    <div class="title">Support Free Islamic Tools</div>
-    <div class="message">
-      If this tool has helped you, consider supporting it so we can continue building free tools for the community.
-      <strong>We do not accept Zakat, Fitra, or Sadaqah.</strong> If you cannot contribute, please remember us in your duas as your duas are equally valuable to us. 🤲
-    </div>
-    <button class="support-btn" onclick="alert('Thank you for your interest! Please contact the developer for support options.')">Support This Project</button>
-  </div>
-
-  <div class="section-head">💰 Today's Precious Metals</div>
-  <div class="card">
-    <div class="card-title">Gold & Silver (Live Prices)</div>
-    <div id="priceTable">Loading...</div>
-  </div>
-
-  <div class="section-head">📏 Nisab Thresholds</div>
-  <div class="card">
-    <div class="card-title">Minimum Wealth for Zakat</div>
-    <div class="price-row">
-      <div>
-        <div class="metal">🥇 Gold (87.48 g)</div>
-        <div class="sub">3 Tola · 7½ Bahar</div>
-      </div>
-      <div class="price" id="nisabGold">...</div>
-    </div>
-    <div class="price-row">
-      <div>
-        <div class="metal">🥈 Silver (612.36 g)</div>
-        <div class="sub">21 Tola · 52½ Bahar</div>
-      </div>
-      <div class="price" id="nisabSilver">...</div>
-    </div>
-  </div>
-
-  <!-- Support Banner at bottom -->
-  <div class="support-banner">
-    <div class="icon">🤲</div>
-    <div class="message">
-      Remember us in your duas – your prayers are valuable to us!
-    </div>
-  </div>
-</div>
-
-<!-- ─── FAQ PAGE ───────────────────────────────── -->
-<div id="faqPage" class="page">
-  
-  <!-- Support Banner -->
-  <div class="support-banner">
-    <div class="icon">💝</div>
-    <div class="title">Support Free Islamic Tools</div>
-    <div class="message">
-      If this tool has helped you, consider supporting it so we can continue building free tools for the community.
-      <strong>We do not accept Zakat, Fitra, or Sadaqah.</strong> If you cannot contribute, please remember us in your duas as your duas are equally valuable to us. 🤲
-    </div>
-    <button class="support-btn" onclick="alert('Thank you for your interest! Please contact the developer for support options.')">Support This Project</button>
-  </div>
-
-  <div class="section-head">❓ Common Questions</div>
-  <div id="faqContainer"></div>
-
-  <!-- Support Banner at bottom -->
-  <div class="support-banner">
-    <div class="icon">🤲</div>
-    <div class="message">
-      Remember us in your duas – your prayers are valuable to us!
-    </div>
-  </div>
-</div>
-
-<!-- ─── FEEDBACK PAGE ──────────────────────────── -->
-<div id="feedbackPage" class="page">
-  
-  <!-- Support Banner -->
-  <div class="support-banner">
-    <div class="icon">💝</div>
-    <div class="title">Support Free Islamic Tools</div>
-    <div class="message">
-      If this tool has helped you, consider supporting it so we can continue building free tools for the community.
-      <strong>We do not accept Zakat, Fitra, or Sadaqah.</strong> If you cannot contribute, please remember us in your duas as your duas are equally valuable to us. 🤲
-    </div>
-    <button class="support-btn" onclick="alert('Thank you for your interest! Please contact the developer for support options.')">Support This Project</button>
-  </div>
-
-  <div class="section-head">💬 Feedback & Suggestions</div>
-  
-  <div class="card">
-    <div class="card-title">Share Your Thoughts</div>
-    <p style="color: var(--silver); font-size: 0.85em; margin-bottom: 16px; line-height: 1.6;">
-      Help us improve this tool! Share your feedback, report bugs, or suggest new features. 
-      All submissions are reviewed by our admin team.
-    </p>
-    
-    <div id="successMessage" style="display: none;"></div>
-    
-    <div class="field">
-      <label>Your Name (Optional)</label>
-      <input type="text" id="feedbackName" placeholder="Anonymous">
-    </div>
-    
-    <div class="field">
-      <label>Type</label>
-      <select id="feedbackType" style="width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--gold); font-size: 1em; font-family: 'DM Sans', sans-serif; outline: none;">
-        <option value="feedback">Feedback</option>
-        <option value="suggestion">Suggestion</option>
-        <option value="bug">Bug Report</option>
-      </select>
-    </div>
-    
-    <div class="field">
-      <label>Your Message</label>
-      <textarea id="feedbackMessage" placeholder="Share your thoughts, suggestions, or report an issue..."></textarea>
-    </div>
-    
-    <button class="btn primary full" onclick="submitFeedback()">✉️ Submit Feedback</button>
-  </div>
-
-  <div class="section-head">📋 Recent Feedback</div>
-  <div id="feedbackList"></div>
-
-  <!-- Admin Login (hidden by default) -->
-  <div class="section-head" style="margin-top: 40px;">🔐 Admin Access</div>
-  <div class="card">
-    <div class="field">
-      <label>Admin Password</label>
-      <input type="password" id="adminPassword" placeholder="Enter admin password">
-    </div>
-    <button class="btn full" onclick="toggleAdminMode()">🔓 Login as Admin</button>
-  </div>
-
-  <!-- Support Banner at bottom -->
-  <div class="support-banner">
-    <div class="icon">🤲</div>
-    <div class="message">
-      Remember us in your duas – your prayers are valuable to us!
-    </div>
-  </div>
-</div>
-
-<!-- ─── ABOUT PAGE ─────────────────────────────── -->
-<div id="aboutPage" class="page">
-  
-  <!-- Support Banner -->
-  <div class="support-banner">
-    <div class="icon">💝</div>
-    <div class="title">Support Free Islamic Tools</div>
-    <div class="message">
-      If this tool has helped you, consider supporting it so we can continue building free tools for the community.
-      <strong>We do not accept Zakat, Fitra, or Sadaqah.</strong> If you cannot contribute, please remember us in your dues as your duas are equally valuable to us. 🤲
-    </div>
-    <button class="support-btn" onclick="alert('Thank you for your interest! Please contact the developer for support options.')">Support This Project</button>
-  </div>
-
-  <div class="section-head">ℹ️ About</div>
-  <div class="card">
-    <h3 style="color: var(--gold); margin-bottom: 12px;">Purpose</h3>
-    <p style="color: var(--silver); line-height: 1.7; font-size: 0.9em;">
-      This calculator helps Muslims in India compute their annual Zakat obligation — 
-      a pillar of Islam requiring 2.5% of eligible wealth to be given to those in need.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3 style="color: var(--gold); margin-bottom: 12px;">Features</h3>
-    <ul style="color: var(--silver); line-height: 1.8; font-size: 0.9em; padding-left: 20px;">
-      <li>Live Gold & Silver prices from Metal Price API</li>
-      <li>INR-based calculations for Indian Muslims</li>
-      <li>Silver Nisab (recommended by scholars)</li>
-      <li>Shariah-compliant methodology</li>
-      <li>PDF & CSV export for records</li>
-      <li>Feedback system for continuous improvement</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3 style="color: var(--gold); margin-bottom: 12px;">Disclaimer</h3>
-    <p style="color: var(--muted); line-height: 1.7; font-size: 0.85em; font-style: italic;">
-      This is a guide only. For complex situations (business Zakat, inherited wealth, etc.), 
-      consult a qualified Islamic scholar familiar with your madhab.
-    </p>
-  </div>
-
-  <div class="footer">
-    <p>Made with <span class="heart">❤️</span> by <strong>Dr. Mohammad Ibrahim Badar</strong></p>
-    <p style="margin-top: 8px;">For the love of the Ummah</p>
-  </div>
-
-  <!-- Support Banner at bottom -->
-  <div class="support-banner">
-    <div class="icon">🤲</div>
-    <div class="message">
-      Remember us in your duas – your prayers are valuable to us!
-    </div>
-  </div>
-</div>
-
-<!-- ─── BOTTOM NAV ─────────────────────────────── -->
+<!-- ── BOTTOM NAV ────────────────────────────────── -->
 <nav class="bottom-nav">
   <button class="nav-item active" onclick="switchPage('calc')">
     <div class="icon">🧮</div>
@@ -748,6 +498,10 @@
     <div class="icon">💰</div>
     <div>Prices</div>
   </button>
+  <button class="nav-item" onclick="switchPage('result')">
+    <div class="icon">📊</div>
+    <div>Results</div>
+  </button>
   <button class="nav-item" onclick="switchPage('faq')">
     <div class="icon">❓</div>
     <div>FAQ</div>
@@ -756,122 +510,623 @@
     <div class="icon">💬</div>
     <div>Feedback</div>
   </button>
-  <button class="nav-item" onclick="switchPage('about')">
-    <div class="icon">ℹ️</div>
-    <div>About</div>
-  </button>
 </nav>
 
+<!-- ══════════════════════════════════════════════ -->
+<!--              📄 PAGE: CALCULATE                -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-calc" class="page active">
+
+  <!-- Support Banner -->
+  <div class="support-banner">
+    <div class="icon">❤️</div>
+    <div class="title">Support This Project</div>
+    <div class="message">
+      This Zakat calculator is created and maintained for the love of the Ummah. 
+      If you find it beneficial, please consider supporting this work through Sadaqah.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">💝 Support Us</button>
+    <div class="note">May Allah accept your deeds and multiply your rewards</div>
+  </div>
+
+  <!-- ── CASH & BANK ── -->
+  <div class="section-head">💵 Cash & Bank Accounts</div>
+  <div class="card">
+    <div class="field">
+      <label>Cash at Home</label>
+      <input type="number" id="cashHome" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Savings Account</label>
+      <input type="number" id="savings" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Current / Checking Account</label>
+      <input type="number" id="current" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Fixed Deposits</label>
+      <input type="number" id="fd" placeholder="0" oninput="calculate()">
+    </div>
+  </div>
+
+  <!-- ── GOLD & SILVER ── -->
+  <div class="section-head">✨ Gold & Silver</div>
+  <div class="card">
+    <div class="card-title">Gold</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>24k Gold (grams)</label>
+        <input type="number" id="gold24" placeholder="0" step="0.1" oninput="calculate()">
+      </div>
+      <div class="field">
+        <label>22k Gold (grams)</label>
+        <input type="number" id="gold22" placeholder="0" step="0.1" oninput="calculate()">
+      </div>
+      <div class="field">
+        <label>18k Gold (grams)</label>
+        <input type="number" id="gold18" placeholder="0" step="0.1" oninput="calculate()">
+      </div>
+      <div class="field">
+        <label>14k Gold (grams)</label>
+        <input type="number" id="gold14" placeholder="0" step="0.1" oninput="calculate()">
+      </div>
+    </div>
+    <div class="auto-val" id="goldVal">Auto-calculated: ₹ 0</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Silver</div>
+    <div class="field">
+      <label>Silver (grams)</label>
+      <input type="number" id="silver" placeholder="0" step="0.1" oninput="calculate()">
+      <div class="auto-val" id="silverVal">Auto-calculated: ₹ 0</div>
+    </div>
+  </div>
+
+  <!-- ── INVESTMENTS ── -->
+  <div class="section-head">📈 Investments</div>
+  <div class="card">
+    <div class="field">
+      <label>Stocks / Shares / Mutual Funds</label>
+      <input type="number" id="stocks" placeholder="0" oninput="calculate()">
+      <div class="hint">Use current market value</div>
+    </div>
+    <div class="field">
+      <label>Bonds / Debentures</label>
+      <input type="number" id="bonds" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Provident Fund (EPF / PPF)</label>
+      <input type="number" id="pf" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Cryptocurrency</label>
+      <input type="number" id="crypto" placeholder="0" oninput="calculate()">
+    </div>
+  </div>
+
+  <!-- ── BUSINESS ── -->
+  <div class="section-head">🏢 Business Assets</div>
+  <div class="card">
+    <div class="field">
+      <label>Cash in Business</label>
+      <input type="number" id="bizCash" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Inventory / Stock</label>
+      <input type="number" id="inventory" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Business Receivables</label>
+      <input type="number" id="receivables" placeholder="0" oninput="calculate()">
+    </div>
+  </div>
+
+  <!-- ── OTHER ASSETS ── -->
+  <div class="section-head">📦 Other Assets</div>
+  <div class="card">
+    <div class="field">
+      <label>Rental Property Value (if investment)</label>
+      <input type="number" id="rentalProp" placeholder="0" oninput="calculate()">
+      <div class="hint">Only for investment properties, NOT your home</div>
+    </div>
+    <div class="field">
+      <label>Money Lent to Others</label>
+      <input type="number" id="lent" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Other Liquid Assets</label>
+      <input type="number" id="other" placeholder="0" oninput="calculate()">
+    </div>
+  </div>
+
+  <!-- ── LIABILITIES ── -->
+  <div class="section-head">📉 Liabilities (Debts Due Within Year)</div>
+  <div class="card">
+    <div class="field">
+      <label>Credit Card Debt</label>
+      <input type="number" id="creditCard" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Personal Loans</label>
+      <input type="number" id="personalLoan" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Business Payables</label>
+      <input type="number" id="bizPayable" placeholder="0" oninput="calculate()">
+    </div>
+    <div class="field">
+      <label>Home Loan (This Year's Installments Only)</label>
+      <input type="number" id="homeLoan" placeholder="0" oninput="calculate()">
+      <div class="hint">NOT the full outstanding amount</div>
+    </div>
+    <div class="field">
+      <label>Other Debts</label>
+      <input type="number" id="otherDebt" placeholder="0" oninput="calculate()">
+    </div>
+  </div>
+
+  <!-- Support Banner at bottom of calc page -->
+  <div class="support-banner">
+    <div class="icon">🤲</div>
+    <div class="title">Found This Helpful?</div>
+    <div class="message">
+      This tool is completely free and ad-free. Your support helps us maintain and improve this service for the Ummah.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">💝 Support This Work</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--              💰 PAGE: PRICES                   -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-prices" class="page">
+  <!-- Support Banner -->
+  <div class="support-banner">
+    <div class="icon">💛</div>
+    <div class="title">May Allah Bless Your Wealth</div>
+    <div class="message">
+      Live prices updated daily to help you calculate accurate Zakat. If this helps you, please consider supporting this free service.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">Support the Developer</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Today's Rates (India)</div>
+    <div id="priceTable"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💡 Understanding Nisab</div>
+    <p style="font-size:0.85em; line-height:1.7; color:var(--silver);">
+      <strong>Nisab</strong> is the minimum threshold of wealth one must possess before Zakat becomes obligatory.
+      <br><br>
+      <strong>Gold Nisab:</strong> 87.48 grams (≈ 7.5 tola)
+      <br>
+      <strong>Silver Nisab:</strong> 612.36 grams (≈ 52.5 tola)
+      <br><br>
+      Most contemporary scholars recommend using the <strong>Silver Nisab</strong> as it is lower and ensures more Muslims fulfil their Zakat obligation.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Historical Context</div>
+    <p style="font-size:0.85em; line-height:1.7; color:var(--silver);">
+      These thresholds come from the time of Prophet Muhammad ﷺ when 200 dirhams (silver) or 20 dinars (gold) represented significant wealth.
+      Today's value fluctuates with market prices, which is why we provide live updates.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--              📊 PAGE: RESULTS                  -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-result" class="page">
+  <!-- Support Banner -->
+  <div class="support-banner">
+    <div class="icon">🙏</div>
+    <div class="title">JazakAllah Khair for Calculating Your Zakat</div>
+    <div class="message">
+      May Allah accept your Zakat and purify your wealth. This calculator is a free service - please support us to keep it running.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">💚 Support This Project</button>
+  </div>
+
+  <!-- ZAKAT AMOUNT -->
+  <div class="zakat-box">
+    <div class="label">💚 ZAKAT DUE (2.5%)</div>
+    <div class="amount" id="zakatAmount">₹ 0</div>
+    <div class="monthly">
+      Suggested monthly: <span id="monthlyAmount">₹ 0</span>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-badge" id="statusBadge">
+    Calculating...
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Total Assets</div>
+      <div class="value" id="totalAssets">₹ 0</div>
+    </div>
+    <div class="metric">
+      <div class="label">Liabilities</div>
+      <div class="value red" id="totalLiab">₹ 0</div>
+    </div>
+    <div class="metric">
+      <div class="label">Net Zakatable</div>
+      <div class="value blue" id="netWealth">₹ 0</div>
+    </div>
+    <div class="metric">
+      <div class="label">Nisab (Silver)</div>
+      <div class="value" id="nisabAmount">₹ 0</div>
+    </div>
+  </div>
+
+  <!-- BREAKDOWN -->
+  <div class="card">
+    <div class="card-title">Detailed Breakdown</div>
+    <table class="breakdown-table">
+      <tbody id="breakdownBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="btn-group">
+    <button class="btn primary" onclick="shareResult()">📤 Share Result</button>
+    <button class="btn" onclick="downloadPDF()">📄 Download PDF</button>
+  </div>
+  <div class="btn-group">
+    <button class="btn" onclick="downloadCSV()">📊 Download CSV</button>
+    <button class="btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+  <div class="card" style="text-align:center; padding:20px;">
+    <p style="font-size:0.85em; color:var(--muted); line-height:1.7;">
+      This calculator is a guide only. For complex situations,<br>
+      consult a qualified Islamic scholar or local imam.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--              ❓ PAGE: FAQ                      -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-faq" class="page">
+  <!-- Support Banner -->
+  <div class="support-banner">
+    <div class="icon">📚</div>
+    <div class="title">Knowledge is Light</div>
+    <div class="message">
+      Understanding Zakat helps you fulfill this pillar of Islam correctly. This free resource is maintained through your support.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">Support Free Islamic Tools</button>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--gold); font-family:'Amiri',serif; margin-bottom:12px; font-size:1.15em;">
+      📖 Frequently Asked Questions
+    </h3>
+    <p style="font-size:0.85em; color:var(--muted); margin-bottom:16px;">
+      Click any question to expand the answer
+    </p>
+  </div>
+
+  <div id="faqContainer"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--              💬 PAGE: FEEDBACK                 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="page-feedback" class="page">
+  <!-- Support Banner -->
+  <div class="support-banner">
+    <div class="icon">💬</div>
+    <div class="title">Your Voice Matters</div>
+    <div class="message">
+      Help us improve this calculator for the entire Muslim community. Share your feedback and suggestions below.
+    </div>
+    <button class="support-btn" onclick="showSupportInfo()">💝 Support Development</button>
+  </div>
+
+  <!-- Admin Login -->
+  <div class="admin-login-box">
+    <div class="title">🔐 Admin Access</div>
+    <div class="field">
+      <input type="password" id="adminPassword" placeholder="Enter admin password">
+    </div>
+    <button class="btn primary" onclick="toggleAdminMode()">
+      <span id="adminBtnText">Login as Admin</span>
+    </button>
+  </div>
+
+  <!-- Feedback Form -->
+  <div class="card">
+    <h3 style="color:var(--gold); font-family:'Amiri',serif; margin-bottom:16px; font-size:1.15em;">
+      ✍️ Submit Feedback
+    </h3>
+    
+    <div class="field">
+      <label>Your Name *</label>
+      <input type="text" id="feedbackName" placeholder="Required" required>
+    </div>
+
+    <div class="field">
+      <label>Type *</label>
+      <select id="feedbackType">
+        <option value="feedback">Feedback</option>
+        <option value="suggestion">Suggestion</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Your Message *</label>
+      <textarea id="feedbackMessage" placeholder="Share your thoughts, suggestions, or report issues..." required></textarea>
+    </div>
+
+    <button class="btn primary" style="width: 100%;" onclick="submitFeedback()">
+      📨 Submit Feedback
+    </button>
+  </div>
+
+  <!-- Feedback List -->
+  <div class="card">
+    <h3 style="color:var(--gold); font-family:'Amiri',serif; margin-bottom:16px; font-size:1.15em;">
+      💭 Community Feedback
+    </h3>
+    <div id="feedbackList"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!--              JAVASCRIPT                        -->
+<!-- ══════════════════════════════════════════════ -->
 <script>
-// ─── NAVIGATION ──────────────────────────────────
-function switchPage(name) {
+// ─── GLOBAL STATE ─────────────────────────────────
+let PRICES = { gold24: 7500, gold22: 6875, gold18: 5625, gold14: 4375, silver: 95 };
+const NISAB_GOLD_G = 87.48;
+const NISAB_SILVER_G = 612.36;
+const FEEDBACK_KEY = 'zakatFeedback';
+const ADMIN_HASH = 'e99a18c428cb38d5f260853678922e03'; // MD5 hash of "admin123" - change this!
+let isAdmin = false;
+
+// ─── NAVIGATION ───────────────────────────────────
+function switchPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  event.target.closest('.nav-item').classList.add('active');
   
-  const pageMap = {
-    calc: 'calcPage',
-    prices: 'pricesPage',
-    faq: 'faqPage',
-    feedback: 'feedbackPage',
-    about: 'aboutPage'
-  };
-  
-  document.getElementById(pageMap[name]).classList.add('active');
-  event.currentTarget.classList.add('active');
-  
-  if (name === 'feedback') {
-    loadFeedback();
-  }
+  if (pageId === 'result') calculate();
+  if (pageId === 'feedback') loadFeedback();
 }
 
-// ─── PRICES ──────────────────────────────────────
-let GOLD_PER_G = 0, SILVER_PER_G = 0;
+// ─── SUPPORT INFO ─────────────────────────────────
+function showSupportInfo() {
+  alert('🤲 JazakAllah Khair for Your Support!\n\n' +
+        'This Zakat Calculator is created and maintained by:\n' +
+        'Dr. Mohammad Ibrahim Badar\n\n' +
+        'For the love of the Ummah - Free and Open Source\n\n' +
+        'To support this work, please contact:\n' +
+        '[Add your contact details or payment information here]\n\n' +
+        'May Allah accept your deeds and multiply your rewards!');
+}
+
+// ─── FETCH PRICES (3-METHOD APPROACH) ────────────
+const GOLD_API_KEY = 'goldapi-1zke8smgrdbnvq-io'; // Your goldapi.io key
+
+// Helper function for timeout
+function fetchWithTimeout(url, options, timeout) {
+  return fetch(url, { ...options, signal: AbortSignal.timeout(timeout) });
+}
 
 async function fetchPrices() {
+  // Method 1 — goldapi.io (premium API with key)
   try {
-    const r = await fetch('https://api.metalpriceapi.com/v1/latest?api_key=3d25b2e6c5da0ce9afc0c8267974dad1&base=INR&currencies=XAU,XAG', {
-      signal: AbortSignal.timeout(5000)
-    });
-    const d = await r.json();
-    if (d?.rates?.INRXAU && d?.rates?.INRXAG) {
-      GOLD_PER_G = d.rates.INRXAU / 31.1035;
-      SILVER_PER_G = d.rates.INRXAG / 31.1035;
-    } else {
-      throw new Error('Invalid API response');
+    const [gRes, sRes] = await Promise.all([
+      fetch('https://www.goldapi.io/api/XAU/INR', {
+        headers: { 'x-access-token': GOLD_API_KEY },
+        signal: AbortSignal.timeout(6000)
+      }),
+      fetch('https://www.goldapi.io/api/XAG/INR', {
+        headers: { 'x-access-token': GOLD_API_KEY },
+        signal: AbortSignal.timeout(6000)
+      })
+    ]);
+    
+    if (gRes.ok && sRes.ok) {
+      const g = await gRes.json();
+      const s = await sRes.json();
+      const g24 = g.price / 31.1035;
+      const sil = s.price / 31.1035;
+      
+      if (g24 > 1000) {
+        PRICES.gold24 = Math.round(g24);
+        PRICES.gold22 = Math.round(g24 * 22/24);
+        PRICES.gold18 = Math.round(g24 * 18/24);
+        PRICES.gold14 = Math.round(g24 * 14/24);
+        PRICES.silver = Math.round(sil * 10) / 10;
+        
+        console.log('✅ Prices fetched via goldapi.io (Method 1)');
+        renderPriceTable();
+        calculate();
+        return; // Success - stop here
+      }
     }
-  } catch (err) {
-    GOLD_PER_G = 6800;
-    SILVER_PER_G = 85;
+  } catch(e) {
+    console.log('❌ goldapi.io failed:', e.message);
   }
-  updatePriceDisplay();
+  
+  // Method 2 — gold-api.com (free backup, no key needed)
+  try {
+    const [gRes, sRes] = await Promise.all([
+      fetchWithTimeout('https://gold-api.com/price/XAU?currency=INR', {}, 6000),
+      fetchWithTimeout('https://gold-api.com/price/XAG?currency=INR', {}, 6000)
+    ]);
+    
+    if (gRes.ok && sRes.ok) {
+      const g = await gRes.json();
+      const s = await sRes.json();
+      const g24 = (g.price || 0) / 31.1035;
+      const sil = (s.price || 0) / 31.1035;
+      
+      if (g24 > 1000) {
+        PRICES.gold24 = Math.round(g24);
+        PRICES.gold22 = Math.round(g24 * 22/24);
+        PRICES.gold18 = Math.round(g24 * 18/24);
+        PRICES.gold14 = Math.round(g24 * 14/24);
+        PRICES.silver = Math.round(sil * 10) / 10;
+        
+        console.log('🟡 Prices fetched via gold-api.com backup (Method 2)');
+        renderPriceTable();
+        calculate();
+        return;
+      }
+    }
+  } catch(e) {
+    console.log('❌ gold-api.com fallback failed:', e.message);
+  }
+  
+  // Method 3 — Use hardcoded fallback prices (approximate Indian market rates)
+  console.log('🔴 Using fallback prices - both APIs unavailable');
+  PRICES.gold24 = 7500;  // Approximate INR per gram
+  PRICES.gold22 = 6875;
+  PRICES.gold18 = 5625;
+  PRICES.gold14 = 4375;
+  PRICES.silver = 95;
+  
+  renderPriceTable();
   calculate();
 }
 
-function updatePriceDisplay() {
-  const fmt = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
-  const nisabG = GOLD_PER_G * 87.48;
-  const nisabS = SILVER_PER_G * 612.36;
-  
+function renderPriceTable() {
+  const nisabGold = Math.round(NISAB_GOLD_G * PRICES.gold24);
+  const nisabSilver = Math.round(NISAB_SILVER_G * PRICES.silver);
   document.getElementById('priceTable').innerHTML = `
     <div class="price-row">
-      <div class="metal">🥇 Gold (24K)</div>
       <div>
-        <div class="price">${fmt(GOLD_PER_G)}/g</div>
-        <div class="sub">${fmt(GOLD_PER_G * 10)}/10g</div>
+        <div class="metal">24k Gold</div>
+        <div class="sub">per gram</div>
       </div>
+      <div class="price">₹ ${PRICES.gold24.toLocaleString('en-IN')}</div>
     </div>
     <div class="price-row">
-      <div class="metal">🥈 Silver (99.9%)</div>
       <div>
-        <div class="price">${fmt(SILVER_PER_G)}/g</div>
-        <div class="sub">${fmt(SILVER_PER_G * 1000)}/kg</div>
+        <div class="metal">22k Gold</div>
+        <div class="sub">per gram</div>
       </div>
+      <div class="price">₹ ${PRICES.gold22.toLocaleString('en-IN')}</div>
+    </div>
+    <div class="price-row">
+      <div>
+        <div class="metal">18k Gold</div>
+        <div class="sub">per gram</div>
+      </div>
+      <div class="price">₹ ${PRICES.gold18.toLocaleString('en-IN')}</div>
+    </div>
+    <div class="price-row">
+      <div>
+        <div class="metal">14k Gold</div>
+        <div class="sub">per gram</div>
+      </div>
+      <div class="price">₹ ${PRICES.gold14.toLocaleString('en-IN')}</div>
+    </div>
+    <div class="price-row">
+      <div>
+        <div class="metal">Silver</div>
+        <div class="sub">per gram</div>
+      </div>
+      <div class="price">₹ ${PRICES.silver.toLocaleString('en-IN')}</div>
+    </div>
+    <div class="price-row" style="border-top:2px solid var(--border); margin-top:8px; padding-top:14px;">
+      <div>
+        <div class="metal" style="color:var(--gold);">Nisab (Gold)</div>
+        <div class="sub">${NISAB_GOLD_G}g = 7.5 tola</div>
+      </div>
+      <div class="price">₹ ${nisabGold.toLocaleString('en-IN')}</div>
+    </div>
+    <div class="price-row">
+      <div>
+        <div class="metal" style="color:var(--gold);">Nisab (Silver) ⭐</div>
+        <div class="sub">${NISAB_SILVER_G}g = 52.5 tola</div>
+      </div>
+      <div class="price">₹ ${nisabSilver.toLocaleString('en-IN')}</div>
     </div>
   `;
-  
-  document.getElementById('nisabGold').textContent = fmt(nisabG);
-  document.getElementById('nisabSilver').textContent = fmt(nisabS);
 }
 
-// ─── CALCULATION ─────────────────────────────────
-const fmt = n => '₹ ' + Math.round(n).toLocaleString('en-IN');
-const fmtFull = n => '₹ ' + n.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+// ─── HELPERS ──────────────────────────────────────
+function v(id) { return parseFloat(document.getElementById(id)?.value || 0); }
+function fmt(n) { return '₹ ' + Math.round(n).toLocaleString('en-IN'); }
+function fmtFull(n) { return '₹ ' + n.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
 
+// ─── CALCULATE ────────────────────────────────────
 function calculate() {
-  const cash    = parseFloat(document.getElementById('inCash').value) || 0;
-  const goldG   = parseFloat(document.getElementById('inGoldG').value) || 0;
-  const silverG = parseFloat(document.getElementById('inSilverG').value) || 0;
-  const invest  = parseFloat(document.getElementById('inInvest').value) || 0;
-  const biz     = parseFloat(document.getElementById('inBiz').value) || 0;
-  const other   = parseFloat(document.getElementById('inOther').value) || 0;
-  const liab    = parseFloat(document.getElementById('inLiab').value) || 0;
-
-  const metals = goldG * GOLD_PER_G + silverG * SILVER_PER_G;
-  document.getElementById('metalVal').textContent = 'Approx. value: ' + fmt(metals);
-
+  // Cash
+  const cash = v('cashHome') + v('savings') + v('current') + v('fd');
+  
+  // Metals
+  const goldVal = v('gold24')*PRICES.gold24 + v('gold22')*PRICES.gold22 + 
+                  v('gold18')*PRICES.gold18 + v('gold14')*PRICES.gold14;
+  const silverVal = v('silver') * PRICES.silver;
+  const metals = goldVal + silverVal;
+  
+  document.getElementById('goldVal').textContent = 'Auto-calculated: ' + fmt(goldVal);
+  document.getElementById('silverVal').textContent = 'Auto-calculated: ' + fmt(silverVal);
+  
+  // Investments
+  const invest = v('stocks') + v('bonds') + v('pf') + v('crypto');
+  
+  // Business
+  const biz = v('bizCash') + v('inventory') + v('receivables');
+  
+  // Other
+  const other = v('rentalProp') + v('lent') + v('other');
+  
+  // Total Assets
   const total = cash + metals + invest + biz + other;
+  
+  // Liabilities
+  const liab = v('creditCard') + v('personalLoan') + v('bizPayable') + v('homeLoan') + v('otherDebt');
+  
+  // Net
   const net = Math.max(0, total - liab);
-  const nisabSil = SILVER_PER_G * 612.36;
+  
+  // Nisab
+  const nisabSil = Math.round(NISAB_SILVER_G * PRICES.silver);
   const met = net >= nisabSil;
-  const zakat = met ? net * 0.025 : 0;
-
-  document.getElementById('zakatDue').textContent = fmt(zakat);
-  document.getElementById('zakatFreq').textContent = zakat > 0 ? `~ ${fmt(zakat/12)} / month` : '';
-  const pill = document.getElementById('statusPill');
-  pill.textContent = met ? 'Zakat IS Obligatory' : 'Below Nisab';
-  pill.className = met ? 'status-pill' : 'status-pill below';
-
-  document.getElementById('metricTotal').textContent = fmt(total);
-  document.getElementById('metricLiab').textContent = fmt(liab);
-  document.getElementById('metricNet').textContent = fmt(net);
-  document.getElementById('metricNisab').textContent = fmt(nisabSil);
-
+  
+  // Zakat
+  const zakat = met ? Math.round(net * 0.025) : 0;
+  
+  // Display
+  document.getElementById('zakatAmount').textContent = fmtFull(zakat);
+  document.getElementById('monthlyAmount').textContent = fmtFull(zakat / 12);
+  document.getElementById('totalAssets').textContent = fmt(total);
+  document.getElementById('totalLiab').textContent = fmt(liab);
+  document.getElementById('netWealth').textContent = fmt(net);
+  document.getElementById('nisabAmount').textContent = fmt(nisabSil);
+  
+  const badge = document.getElementById('statusBadge');
+  if (met) {
+    badge.className = 'status-badge met';
+    badge.textContent = '✓ Zakat IS Obligatory on you';
+  } else {
+    badge.className = 'status-badge not-met';
+    badge.textContent = '✗ Below Nisab — Not yet obligatory';
+  }
+  
+  // Breakdown table
   const rows = [
-    ['💵 Cash & Bank',           cash,  '#cbd5e1', false],
-    ['🪙 Gold & Silver',         metals,'#cbd5e1', false],
-    ['📈 Investments',           invest,'#cbd5e1', false],
-    ['🏢 Business Assets',       biz,   '#cbd5e1', false],
-    ['💎 Other Assets',          other, '#cbd5e1', false],
+    ['💵 Cash & Bank',           cash,   '#cbd5e1', false],
+    ['✨ Gold & Silver',         metals, '#cbd5e1', false],
+    ['📈 Investments',           invest, '#cbd5e1', false],
+    ['🏢 Business Assets',       biz,    '#cbd5e1', false],
+    ['📦 Other Assets',          other,  '#cbd5e1', false],
     ['— TOTAL ASSETS —',         total,  '#f0c040', true],
     ['📉 Liabilities',           liab,   '#f87171', false],
     ['— NET ZAKATABLE WEALTH —', net,    '#38bdf8', true],
@@ -883,6 +1138,7 @@ function calculate() {
       <td style="color:${c};font-weight:${b?700:400}">${l==='📉 Liabilities'&&v>0?'− ':''} ${fmtFull(v)}</td>
     </tr>`).join('');
 
+  // Store for sharing & PDF
   window._zakatResult    = { total, liab, net, zakat, met, nisabSil };
   window._zakatBreakdown = { cash, metals, invest, biz, other };
 }
@@ -941,20 +1197,19 @@ document.getElementById('faqContainer').innerHTML = FAQS.map(([q, a]) => `
     <div class="faq-a">${a}</div>
   </div>`).join('');
 
-// ─── FEEDBACK SYSTEM ─────────────────────────────
-let isAdmin = false;
-const ADMIN_PASSWORD = 'admin123'; // Change this to your secure password
-
-// LocalStorage keys
-const FEEDBACK_KEY = 'zakatFeedback';
-
+// ─── FEEDBACK SYSTEM ──────────────────────────────
 function submitFeedback() {
-  const name = document.getElementById('feedbackName').value.trim() || 'Anonymous';
+  const name = document.getElementById('feedbackName').value.trim();
   const type = document.getElementById('feedbackType').value;
   const message = document.getElementById('feedbackMessage').value.trim();
   
+  if (!name) {
+    alert('⚠️ Please enter your name.');
+    return;
+  }
+  
   if (!message) {
-    alert('Please enter your feedback message.');
+    alert('⚠️ Please enter your feedback message.');
     return;
   }
   
@@ -963,11 +1218,14 @@ function submitFeedback() {
     name: name,
     type: type,
     message: message,
-    date: new Date().toLocaleString('en-IN'),
+    date: new Date().toLocaleDateString('en-IN', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric' 
+    }),
     adminResponse: null
   };
   
-  // Get existing feedback
   const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
   feedbackList.unshift(feedback);
   localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbackList));
@@ -976,15 +1234,7 @@ function submitFeedback() {
   document.getElementById('feedbackName').value = '';
   document.getElementById('feedbackMessage').value = '';
   
-  // Show success message
-  const successMsg = document.getElementById('successMessage');
-  successMsg.className = 'success-msg';
-  successMsg.style.display = 'block';
-  successMsg.textContent = '✓ Thank you for your feedback! Your message has been submitted.';
-  
-  setTimeout(() => {
-    successMsg.style.display = 'none';
-  }, 3000);
+  alert('✅ Thank you for your feedback! JazakAllah Khair!');
   
   // Reload feedback list
   loadFeedback();
@@ -1003,17 +1253,17 @@ function loadFeedback() {
     <div class="feedback-item">
       <div class="feedback-header">
         <div class="feedback-meta">
-          <div class="feedback-name">${fb.name}</div>
+          <div class="feedback-name">${escapeHtml(fb.name)}</div>
           <div class="feedback-date">${fb.date}</div>
         </div>
         <div class="feedback-type ${fb.type}">${fb.type.toUpperCase()}</div>
       </div>
-      <div class="feedback-message">${fb.message}</div>
+      <div class="feedback-message">${escapeHtml(fb.message)}</div>
       
       ${fb.adminResponse ? `
         <div class="admin-response">
           <div class="admin-label">Admin Response</div>
-          <div class="admin-text">${fb.adminResponse}</div>
+          <div class="admin-text">${escapeHtml(fb.adminResponse)}</div>
         </div>
       ` : ''}
       
@@ -1037,22 +1287,34 @@ function loadFeedback() {
   `).join('');
 }
 
-function toggleAdminMode() {
+async function toggleAdminMode() {
   const password = document.getElementById('adminPassword').value;
   
-  if (password === ADMIN_PASSWORD) {
+  if (!password) {
+    alert('⚠️ Please enter the admin password.');
+    return;
+  }
+  
+  // Hash the password using simple MD5 (for demo - use better hashing in production)
+  const hashedPassword = await simpleHash(password);
+  
+  if (hashedPassword === ADMIN_HASH) {
     isAdmin = !isAdmin;
     document.getElementById('adminPassword').value = '';
     
+    const btn = document.getElementById('adminBtnText');
     if (isAdmin) {
       alert('✓ Admin mode activated');
+      btn.textContent = 'Logout Admin';
     } else {
       alert('Admin mode deactivated');
+      btn.textContent = 'Login as Admin';
     }
     
     loadFeedback();
   } else {
     alert('✗ Incorrect password');
+    document.getElementById('adminPassword').value = '';
   }
 }
 
@@ -1060,7 +1322,7 @@ function respondToFeedback(id) {
   const response = document.getElementById(`response-${id}`).value.trim();
   
   if (!response) {
-    alert('Please enter a response.');
+    alert('⚠️ Please enter a response.');
     return;
   }
   
@@ -1070,6 +1332,7 @@ function respondToFeedback(id) {
   if (index !== -1) {
     feedbackList[index].adminResponse = response;
     localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbackList));
+    alert('✅ Response posted successfully!');
     loadFeedback();
   }
 }
@@ -1082,7 +1345,25 @@ function deleteFeedback(id) {
   const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
   const filtered = feedbackList.filter(fb => fb.id !== id);
   localStorage.setItem(FEEDBACK_KEY, JSON.stringify(filtered));
+  alert('✅ Feedback deleted');
   loadFeedback();
+}
+
+// Simple hash function (MD5 alternative for demo)
+async function simpleHash(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex.substring(0, 32); // Take first 32 chars to match MD5 length
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 // ─── VISITOR COUNTER ─────────────────────────────
@@ -1212,6 +1493,7 @@ function downloadPDF() {
 fetchPrices();
 loadCounter();
 calculate();
+loadFeedback();
 </script>
 </body>
 </html>
