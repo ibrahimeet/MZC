@@ -9,6 +9,11 @@
 <title>Zakat Calculator 🕌</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 <style>
   :root {
     --bg:       #0a0f1e;
@@ -460,6 +465,26 @@
     margin-bottom: 10px;
   }
 
+  /* ── LOADING SPINNER ── */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+  }
+  .spinner {
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
     .btn-group { grid-template-columns: 1fr; }
@@ -523,7 +548,10 @@
     <div class="title">Support This Project</div>
     <div class="message">
       This Zakat calculator is created and maintained for the love of the Ummah. 
-      If you find it beneficial, please consider supporting this work through Sadaqah.
+      If you find it beneficial, please consider supporting this work through contribution.
+      Sadaqah, Zakat and Fitrah are not accepted!
+      If you cannot contribute, please remember us in your duas.
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">💝 Support Us</button>
     <div class="note">May Allah accept your deeds and multiply your rewards</div>
@@ -673,6 +701,11 @@
     <div class="title">Found This Helpful?</div>
     <div class="message">
       This tool is completely free and ad-free. Your support helps us maintain and improve this service for the Ummah.
+      Please contribute generously through UPI to grow more such applications
+      mibcommunity@ybl
+      you can contribute through PhonePe & GooglePay or any other UPI
+      We do not accept Sadaqah, Fitra or Zakat
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">💝 Support This Work</button>
   </div>
@@ -688,6 +721,11 @@
     <div class="title">May Allah Bless Your Wealth</div>
     <div class="message">
       Live prices updated daily to help you calculate accurate Zakat. If this helps you, please consider supporting this free service.
+      Please contribute generously through UPI to grow more such applications
+      mibcommunity@ybl
+      you can contribute through PhonePe & GooglePay or any other UPI
+      We do not accept Sadaqah, Fitra or Zakat
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">Support the Developer</button>
   </div>
@@ -729,6 +767,11 @@
     <div class="title">JazakAllah Khair for Calculating Your Zakat</div>
     <div class="message">
       May Allah accept your Zakat and purify your wealth. This calculator is a free service - please support us to keep it running.
+      Please contribute generously through UPI to grow more such applications
+      mibcommunity@ybl
+      you can contribute through PhonePe & GooglePay or any other UPI
+      We do not accept Sadaqah, Fitra or Zakat
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">💚 Support This Project</button>
   </div>
@@ -803,6 +846,11 @@
     <div class="title">Knowledge is Light</div>
     <div class="message">
       Understanding Zakat helps you fulfill this pillar of Islam correctly. This free resource is maintained through your support.
+      Please contribute generously through UPI to grow more such applications
+      mibcommunity@ybl
+      you can contribute through PhonePe & GooglePay or any other UPI
+      We do not accept Sadaqah, Fitra or Zakat
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">Support Free Islamic Tools</button>
   </div>
@@ -829,6 +877,11 @@
     <div class="title">Your Voice Matters</div>
     <div class="message">
       Help us improve this calculator for the entire Muslim community. Share your feedback and suggestions below.
+      Please contribute generously through UPI to grow more such applications
+      mibcommunity@ybl
+      you can contribute through PhonePe & GooglePay or any other UPI
+      We do not accept Sadaqah, Fitra or Zakat
+      Your duas are equally valuable to us. 🤲
     </div>
     <button class="support-btn" onclick="showSupportInfo()">💝 Support Development</button>
   </div>
@@ -878,7 +931,12 @@
     <h3 style="color:var(--gold); font-family:'Amiri',serif; margin-bottom:16px; font-size:1.15em;">
       💭 Community Feedback
     </h3>
-    <div id="feedbackList"></div>
+    <div id="feedbackList">
+      <div class="loading">
+        <div class="spinner"></div>
+        <div>Loading feedback...</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -886,12 +944,34 @@
 <!--              JAVASCRIPT                        -->
 <!-- ══════════════════════════════════════════════ -->
 <script>
+// ─── FIREBASE CONFIGURATION ───────────────────────
+// TODO: Replace with your Firebase config from Firebase Console
+const firebaseConfig = {
+  apiKey: "AIzaSyA2Gz6gbpBZtISJy8XOXyDWTrmq1YBDA",
+  authDomain: "zakat-calculator-bf08c.firebaseapp.com",
+  databaseURL: "https://zakat-calculator-bf08c-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "zakat-calculator-bf08c",
+  storageBucket: "zakat-calculator-bf08c.firebasestorage.app",
+  messagingSenderId: "730420821338",
+  appId: ":730420821338:web:0a8462b49237b635ca8763"
+};
+
+// Initialize Firebase
+let db = null;
+try {
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  console.log('✅ Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization failed:', error);
+  alert('⚠️ Database connection failed. Feedback feature may not work. Please check Firebase configuration.');
+}
+
 // ─── GLOBAL STATE ─────────────────────────────────
 let PRICES = { gold24: 7500, gold22: 6875, gold18: 5625, gold14: 4375, silver: 95 };
 const NISAB_GOLD_G = 87.48;
 const NISAB_SILVER_G = 612.36;
-const FEEDBACK_KEY = 'zakatFeedback';
-const ADMIN_HASH = 'e99a18c428cb38d5f260853678922e03'; // MD5 hash of "admin123" - change this!
+const ADMIN_HASH = '1aee196179f13ee63d47827bec341b20'; // SHA-256 hash of "admin123" - CHANGE THIS!
 let isAdmin = false;
 
 // ─── NAVIGATION ───────────────────────────────────
@@ -908,11 +988,14 @@ function switchPage(pageId) {
 // ─── SUPPORT INFO ─────────────────────────────────
 function showSupportInfo() {
   alert('🤲 JazakAllah Khair for Your Support!\n\n' +
+        'To support this work, please contribute:\n\n' +
+        'mibcommunity@ybl\n\n' +
+        'you can contribute through PhonePe & GooglePay\n' +
+        'or any other UPI\n\n' +
+        'We do not accept Sadaqah, Fitra or Zakat\n' +
         'This Zakat Calculator is created and maintained by:\n' +
-        'Dr. Mohammad Ibrahim Badar\n\n' +
+        'Dr. MIB\n\n' +
         'For the love of the Ummah - Free and Open Source\n\n' +
-        'To support this work, please contact:\n' +
-        '[Add your contact details or payment information here]\n\n' +
         'May Allah accept your deeds and multiply your rewards!');
 }
 
@@ -993,11 +1076,11 @@ async function fetchPrices() {
   
   // Method 3 — Use hardcoded fallback prices (approximate Indian market rates)
   console.log('🔴 Using fallback prices - both APIs unavailable');
-  PRICES.gold24 = 7500;  // Approximate INR per gram
-  PRICES.gold22 = 6875;
-  PRICES.gold18 = 5625;
-  PRICES.gold14 = 4375;
-  PRICES.silver = 95;
+  PRICES.gold24 = 15212;  // Approximate INR per gram
+  PRICES.gold22 = 13945;
+  PRICES.gold18 = 11409;
+  PRICES.gold14 = 8874;
+  PRICES.silver = 250;
   
   renderPriceTable();
   calculate();
@@ -1197,8 +1280,13 @@ document.getElementById('faqContainer').innerHTML = FAQS.map(([q, a]) => `
     <div class="faq-a">${a}</div>
   </div>`).join('');
 
-// ─── FEEDBACK SYSTEM ──────────────────────────────
-function submitFeedback() {
+// ─── FIREBASE FEEDBACK SYSTEM ─────────────────────
+async function submitFeedback() {
+  if (!db) {
+    alert('⚠️ Database not connected. Please check Firebase configuration.');
+    return;
+  }
+
   const name = document.getElementById('feedbackName').value.trim();
   const type = document.getElementById('feedbackType').value;
   const message = document.getElementById('feedbackMessage').value.trim();
@@ -1214,10 +1302,10 @@ function submitFeedback() {
   }
   
   const feedback = {
-    id: Date.now(),
     name: name,
     type: type,
     message: message,
+    timestamp: firebase.database.ServerValue.TIMESTAMP,
     date: new Date().toLocaleDateString('en-IN', { 
       day: 'numeric', 
       month: 'short', 
@@ -1226,65 +1314,94 @@ function submitFeedback() {
     adminResponse: null
   };
   
-  const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
-  feedbackList.unshift(feedback);
-  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbackList));
-  
-  // Clear form
-  document.getElementById('feedbackName').value = '';
-  document.getElementById('feedbackMessage').value = '';
-  
-  alert('✅ Thank you for your feedback! JazakAllah Khair!');
-  
-  // Reload feedback list
-  loadFeedback();
+  try {
+    await db.ref('feedback').push(feedback);
+    
+    // Clear form
+    document.getElementById('feedbackName').value = '';
+    document.getElementById('feedbackMessage').value = '';
+    
+    alert('✅ Thank you for your feedback! JazakAllah Khair!');
+    
+    // Reload feedback list
+    loadFeedback();
+  } catch (error) {
+    console.error('Error submitting feedback:', error);
+    alert('❌ Failed to submit feedback. Please try again.');
+  }
 }
 
 function loadFeedback() {
-  const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
-  const container = document.getElementById('feedbackList');
-  
-  if (feedbackList.length === 0) {
-    container.innerHTML = '<div class="card" style="text-align: center; color: var(--muted); padding: 32px;">No feedback yet. Be the first to share your thoughts!</div>';
+  if (!db) {
+    document.getElementById('feedbackList').innerHTML = `
+      <div class="card" style="text-align: center; color: var(--red); padding: 32px;">
+        ⚠️ Database not connected.<br>
+        Please check Firebase configuration in the code.
+      </div>
+    `;
     return;
   }
+
+  const container = document.getElementById('feedbackList');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div><div>Loading feedback...</div></div>';
   
-  container.innerHTML = feedbackList.map(fb => `
-    <div class="feedback-item">
-      <div class="feedback-header">
-        <div class="feedback-meta">
-          <div class="feedback-name">${escapeHtml(fb.name)}</div>
-          <div class="feedback-date">${fb.date}</div>
-        </div>
-        <div class="feedback-type ${fb.type}">${fb.type.toUpperCase()}</div>
-      </div>
-      <div class="feedback-message">${escapeHtml(fb.message)}</div>
-      
-      ${fb.adminResponse ? `
-        <div class="admin-response">
-          <div class="admin-label">Admin Response</div>
-          <div class="admin-text">${escapeHtml(fb.adminResponse)}</div>
-        </div>
-      ` : ''}
-      
-      ${isAdmin && !fb.adminResponse ? `
-        <div class="admin-panel">
-          <div style="font-size: 0.75em; color: var(--gold); margin-bottom: 8px; font-weight: 600;">ADMIN PANEL</div>
-          <textarea id="response-${fb.id}" placeholder="Enter your response..." style="width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--text); font-size: 0.85em; min-height: 80px; font-family: 'DM Sans', sans-serif;"></textarea>
-          <div class="admin-actions">
-            <button class="btn primary" style="flex: 1;" onclick="respondToFeedback(${fb.id})">✓ Post Response</button>
-            <button class="btn" onclick="deleteFeedback(${fb.id})" style="background: var(--red); color: white;">✕ Delete</button>
+  db.ref('feedback').orderByChild('timestamp').on('value', (snapshot) => {
+    const feedbackData = [];
+    snapshot.forEach((childSnapshot) => {
+      feedbackData.push({
+        id: childSnapshot.key,
+        ...childSnapshot.val()
+      });
+    });
+    
+    // Reverse to show newest first
+    feedbackData.reverse();
+    
+    if (feedbackData.length === 0) {
+      container.innerHTML = '<div class="card" style="text-align: center; color: var(--muted); padding: 32px;">No feedback yet. Be the first to share your thoughts!</div>';
+      return;
+    }
+    
+    container.innerHTML = feedbackData.map(fb => `
+      <div class="feedback-item">
+        <div class="feedback-header">
+          <div class="feedback-meta">
+            <div class="feedback-name">${escapeHtml(fb.name)}</div>
+            <div class="feedback-date">${fb.date}</div>
           </div>
+          <div class="feedback-type ${fb.type}">${fb.type.toUpperCase()}</div>
         </div>
-      ` : ''}
-      
-      ${isAdmin && fb.adminResponse ? `
-        <div style="margin-top: 12px;">
-          <button class="btn" onclick="deleteFeedback(${fb.id})" style="background: var(--red); color: white; font-size: 0.8em;">✕ Delete This Feedback</button>
-        </div>
-      ` : ''}
-    </div>
-  `).join('');
+        <div class="feedback-message">${escapeHtml(fb.message)}</div>
+        
+        ${fb.adminResponse ? `
+          <div class="admin-response">
+            <div class="admin-label">Admin Response</div>
+            <div class="admin-text">${escapeHtml(fb.adminResponse)}</div>
+          </div>
+        ` : ''}
+        
+        ${isAdmin && !fb.adminResponse ? `
+          <div class="admin-panel">
+            <div style="font-size: 0.75em; color: var(--gold); margin-bottom: 8px; font-weight: 600;">ADMIN PANEL</div>
+            <textarea id="response-${fb.id}" placeholder="Enter your response..." style="width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--text); font-size: 0.85em; min-height: 80px; font-family: 'DM Sans', sans-serif;"></textarea>
+            <div class="admin-actions">
+              <button class="btn primary" style="flex: 1;" onclick="respondToFeedback('${fb.id}')">✓ Post Response</button>
+              <button class="btn" onclick="deleteFeedback('${fb.id}')" style="background: var(--red); color: white;">✕ Delete</button>
+            </div>
+          </div>
+        ` : ''}
+        
+        ${isAdmin && fb.adminResponse ? `
+          <div style="margin-top: 12px;">
+            <button class="btn" onclick="deleteFeedback('${fb.id}')" style="background: var(--red); color: white; font-size: 0.8em;">✕ Delete This Feedback</button>
+          </div>
+        ` : ''}
+      </div>
+    `).join('');
+  }, (error) => {
+    console.error('Error loading feedback:', error);
+    container.innerHTML = '<div class="card" style="text-align: center; color: var(--red); padding: 32px;">❌ Failed to load feedback. Please refresh the page.</div>';
+  });
 }
 
 async function toggleAdminMode() {
@@ -1295,7 +1412,6 @@ async function toggleAdminMode() {
     return;
   }
   
-  // Hash the password using simple MD5 (for demo - use better hashing in production)
   const hashedPassword = await simpleHash(password);
   
   if (hashedPassword === ADMIN_HASH) {
@@ -1318,45 +1434,55 @@ async function toggleAdminMode() {
   }
 }
 
-function respondToFeedback(id) {
-  const response = document.getElementById(`response-${id}`).value.trim();
+async function respondToFeedback(feedbackId) {
+  if (!db) {
+    alert('⚠️ Database not connected.');
+    return;
+  }
+
+  const response = document.getElementById(`response-${feedbackId}`).value.trim();
   
   if (!response) {
     alert('⚠️ Please enter a response.');
     return;
   }
   
-  const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
-  const index = feedbackList.findIndex(fb => fb.id === id);
-  
-  if (index !== -1) {
-    feedbackList[index].adminResponse = response;
-    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbackList));
+  try {
+    await db.ref(`feedback/${feedbackId}/adminResponse`).set(response);
     alert('✅ Response posted successfully!');
-    loadFeedback();
+  } catch (error) {
+    console.error('Error posting response:', error);
+    alert('❌ Failed to post response. Please try again.');
   }
 }
 
-function deleteFeedback(id) {
+async function deleteFeedback(feedbackId) {
+  if (!db) {
+    alert('⚠️ Database not connected.');
+    return;
+  }
+
   if (!confirm('Are you sure you want to delete this feedback?')) {
     return;
   }
   
-  const feedbackList = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]');
-  const filtered = feedbackList.filter(fb => fb.id !== id);
-  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(filtered));
-  alert('✅ Feedback deleted');
-  loadFeedback();
+  try {
+    await db.ref(`feedback/${feedbackId}`).remove();
+    alert('✅ Feedback deleted');
+  } catch (error) {
+    console.error('Error deleting feedback:', error);
+    alert('❌ Failed to delete feedback. Please try again.');
+  }
 }
 
-// Simple hash function (MD5 alternative for demo)
+// Simple hash function
 async function simpleHash(str) {
   const encoder = new TextEncoder();
   const data = encoder.encode(str);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex.substring(0, 32); // Take first 32 chars to match MD5 length
+  return hashHex.substring(0, 32);
 }
 
 // Escape HTML to prevent XSS
